@@ -14,7 +14,7 @@
             <label for="emailInput">Email:</label>
             <input type="text" id="emailInput" name="email" required>
             <label for="phoneInput">Phone Number:</label>
-            <input type="text" id="phoneInput" name="phone" required>
+            <input type="text" id="phoneInput" name="phoneNumber" required>
             <label for="amountInput">Amount:</label>
             <input type="text" id="amountInput" name="amount" required>
             <label for="membershipType">Membership Type:</label>
@@ -27,14 +27,26 @@
             <label for="dateInput">Joining Date:</label>
             <input type="date" id="dateInput" name="date" required>
             <button type="submit" id="ctaButton">Register User</button>
+            <div class="header">
+                <h1>Or</h1>
+            </div>
+            <a id="viewAllUsersLink" href="#">View all users</a> <!-- Changed href value to "#" -->
         </form>
     </div>
 
     <div id="toastSuccess" class="toast toast-success">User created successfully!</div>
-
-    <!-- Error Toast Message -->
     <div id="toastError" class="toast toast-failure">Failed to create user. Please try again.</div>
-    
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="userData"></div>
+        </div>
+    </div>
+
+    <!-- Separate CSS for the modal -->
+    <link rel="stylesheet" href="Modal.css">
+
     <script>
         function submitForm(event) {
             event.preventDefault(); // Prevent default form submission behavior
@@ -50,29 +62,96 @@
             fetch(apiUrl, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'ngrok-skip-browser-warning': true
                 },
-                body: JSON.stringify(userData) // Convert userData object to JSON string
+                body: JSON.stringify(userData), // Convert userData object to JSON string
+                redirect: "follow"
             })
             .then(response => response.json()) // Parse the response as JSON
             .then(data => {
-    console.log(data); // Log the response data (you can handle it as needed)
-    document.getElementById('toastSuccess').style.opacity = 1; // Show success toast
-    setTimeout(() => {
-        document.getElementById('toastSuccess').style.opacity = 0; // Hide success toast after 3 seconds
-    }, 3000);
-    form.reset(); // Reset the form after successful submission
-})
-.catch(error => {
-    console.error('Error:', error); // Log any errors that occur during the request
-    document.getElementById('toastError').style.opacity = 1; // Show error toast
-    setTimeout(() => {
-        document.getElementById('toastError').style.opacity = 0; // Hide error toast after 3 seconds
-    }, 3000);
-    alert('Failed to create user. Please try again.'); // Show error message to the user
+                console.log(data); // Log the response data (you can handle it as needed)
+                document.getElementById('toastSuccess').style.opacity = 1; // Show success toast
+                setTimeout(() => {
+                    document.getElementById('toastSuccess').style.opacity = 0; // Hide success toast after 3 seconds
+                }, 3000);
+                form.reset(); // Reset the form after successful submission
+            })
+            .catch(error => {
+                console.error('Error:', error); // Log any errors that occur during the request
+                document.getElementById('toastError').style.opacity = 1; // Show error toast
+                setTimeout(() => {
+                    document.getElementById('toastError').style.opacity = 0; // Hide error toast after 3 seconds
+                }, 3000);
+                alert('Failed to create user. Please try again.'); // Show error message to the user
+            });
+        }
+
+        document.getElementById('viewAllUsersLink').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default link behavior
+    // Call the GET API
+    fetch('https://fad4-117-220-131-90.ngrok-free.app/v1/user', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'ngrok-skip-browser-warning': true
+        },
+        redirect: "follow"
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Display the received data in the modal as a table
+        const modal = document.getElementById('myModal');
+        const modalContent = document.getElementById('userData');
+        const tableHTML = createTableFromData(data); // Create table HTML from data
+        modalContent.innerHTML = tableHTML; // Insert the table HTML into the modal content
+        modal.style.display = 'block'; // Show the modal
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+        alert('Failed to fetch user data. Please try again.');
+    });
 });
 
+// Function to create HTML table from JSON data
+function createTableFromData(data) {
+    let tableHTML = '<table class="user-table">';
+    // Create table headers with renamed columns or remove specific columns
+    tableHTML += '<tr>';
+    Object.keys(data[0]).forEach(key => {
+        if (key !== 'uuid') { // Remove a specific column
+            let renamedKey = key === 'originalColumnName' ? 'New Name' : key; // Rename a column
+            tableHTML += '<th>' + renamedKey + '</th>';
         }
+    });
+    tableHTML += '</tr>';
+    // Create table rows with data
+    data.forEach(user => {
+        tableHTML += '<tr>';
+        Object.entries(user).forEach(([key, value]) => {
+            if (key !== 'uuid') { // Remove a specific column
+                tableHTML += '<td>' + value + '</td>';
+            }
+        });
+        tableHTML += '</tr>';
+    });
+    tableHTML += '</table>';
+    return tableHTML;
+}
+
+// Close the modal when the close button is clicked
+document.getElementsByClassName('close')[0].addEventListener('click', function() {
+    document.getElementById('myModal').style.display = 'none';
+});
+
+// Close the modal when clicking outside the modal content
+window.onclick = function(event) {
+    const modal = document.getElementById('myModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+};
+
     </script>
 </body>
 </html>
