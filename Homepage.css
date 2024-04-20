@@ -1,0 +1,98 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: "Plus Jakarta Sans", sans-serif; /* Added font family */
+}
+
+header {
+    background-color: #333;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    margin: 8px;
+}
+
+nav li {
+    display: inline-block;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-family: inherit;
+    font-weight: 16px;
+    font-size: 18px;
+    margin: 0 20px; /* Adjust margin for space between links */
+    transition: color 0.3s ease;
+}
+
+nav a:active,
+nav a.active {
+    color: #c9c8c8; /* Change text color on active state */
+}
+
+/* Basic styling for the navigation links */
+nav a {
+    position: relative;
+    color: #fff; /* Text color */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+/* Underline effect */
+/* Basic styling for the navigation links */
+nav a {
+    position: relative;
+    color: #fff; /* Text color */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+/* Underline effect */
+nav a::before {
+    content: '';
+    position: absolute;
+    bottom: -2px; /* Position the underline below the text */
+    left: 0;
+    width: 100%; /* Full width of the link */
+    height: 1.5px; /* Height of the underline */
+    background-color: #fff; /* Color of the underline (white) */
+    transition: transform 0.3s ease; /* Transition for movement */
+    transform: scaleX(0); /* Initially hidden */
+    transform-origin: left; /* Start from the left */
+}
+
+/* Hover effect to reveal the underline */
+nav a:hover::before {
+    transform: scaleX(1); /* Expand the underline from left to right */
+}
+
+/* Optional: Adjustments for active links */
+nav a.active::before {
+    transform: scaleX(1); /* Show underline for active links */
+}
+
+
+
+#myFrame {
+    width: 100%;
+    height: calc(100% - 50px); /* Subtract header height */
+    border: none;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    nav a {
+        margin: 0 10px; /* Adjust margin for smaller screens */
+        font-size: 16px; /* Reduce font size for smaller screens */
+    }
+}

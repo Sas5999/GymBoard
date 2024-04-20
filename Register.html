@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Example</title>
+    <link rel="stylesheet" href="Register.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <div class="container">
+        <form id="myForm" onsubmit="submitForm(event)">
+            <label for="nameInput">Name:</label>
+            <input type="text" id="nameInput" name="name" required>
+            <label for="emailInput">Email:</label>
+            <input type="text" id="emailInput" name="email" required>
+            <label for="phoneInput">Phone Number:</label>
+            <input type="text" id="phoneInput" name="phone" required>
+            <label for="amountInput">Amount:</label>
+            <input type="text" id="amountInput" name="amount" required>
+            <label for="membershipType">Membership Type:</label>
+            <select id="membershipType" name="membershipType" required style="width: 100%; border-radius: 4px; height: 28px; margin-bottom: 13px;">
+                <option value="SelectMembership">Select Membership</option>  
+                <option value="Silver">Silver</option>
+                <option value="Gold">Gold</option>
+                <option value="Diamond">Diamond</option>
+            </select>
+            <label for="dateInput">Joining Date:</label>
+            <input type="date" id="dateInput" name="date" required>
+            <button type="submit" id="ctaButton">Register User</button>
+        </form>
+    </div>
+
+    <div id="toastSuccess" class="toast toast-success">User created successfully!</div>
+
+    <!-- Error Toast Message -->
+    <div id="toastError" class="toast toast-failure">Failed to create user. Please try again.</div>
+    
+    <script>
+        function submitForm(event) {
+            event.preventDefault(); // Prevent default form submission behavior
+            const form = document.getElementById('myForm'); // Get the form element
+            const formData = new FormData(form); // Create FormData object from form data
+            const userData = {}; // Create an empty object to store form data
+            // Iterate through form data and populate the userData object
+            for (const [key, value] of formData.entries()) {
+                userData[key] = value;
+            }
+            const apiUrl = 'https://fad4-117-220-131-90.ngrok-free.app/v1/user'; // API endpoint URL
+            // Send a POST request to the API endpoint with the form data in JSON format
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData) // Convert userData object to JSON string
+            })
+            .then(response => response.json()) // Parse the response as JSON
+            .then(data => {
+    console.log(data); // Log the response data (you can handle it as needed)
+    document.getElementById('toastSuccess').style.opacity = 1; // Show success toast
+    setTimeout(() => {
+        document.getElementById('toastSuccess').style.opacity = 0; // Hide success toast after 3 seconds
+    }, 3000);
+    form.reset(); // Reset the form after successful submission
+})
+.catch(error => {
+    console.error('Error:', error); // Log any errors that occur during the request
+    document.getElementById('toastError').style.opacity = 1; // Show error toast
+    setTimeout(() => {
+        document.getElementById('toastError').style.opacity = 0; // Hide error toast after 3 seconds
+    }, 3000);
+    alert('Failed to create user. Please try again.'); // Show error message to the user
+});
+
+        }
+    </script>
+</body>
+</html>

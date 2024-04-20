@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Example</title>
+    <link rel="stylesheet" href="Bill.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <div class="container">
+        <form id="myForm">
+            <label for="idInput">Gym ID:</label>
+            <input type="text" id="idInput" name="id" required>
+
+            <label for="nameInput">Name:</label>
+            <input type="text" id="nameInput" name="name" required>
+
+            <label for="amountInput">Amount:</label>
+            <input type="text" id="amountInput" name="amount" required>
+            
+            <label for="membershipType">Membership Type:</label>
+            <select id="membershipType" name="membershipType" required style="width: 100%;
+            border-radius: 4px;
+            height: 28px;
+            margin-bottom: 13px;">
+                <option value="SelectMembership">Select Membership</option>  
+                <option value="Silver">Silver</option>
+                <option value="Gold">Gold</option>
+                <option value="Diamond">Diamond</option>
+            </select>
+
+            <button type="submit" id="ctaButton">Mark as paid</button>
+        </form>
+    </div>
+</body>
+</html>

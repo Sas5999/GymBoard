@@ -1,0 +1,63 @@
+body {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+    background: url('https://img.freepik.com/free-photo/3d-gym-equipment_23-2151114193.jpg?t=st=1713544116~exp=1713547716~hmac=defabbe230bfcf56a2479f54fea8cd03839dd6f486012dd54c2d0287ec26ee41&w=1800');
+    background-size: cover; /* Adjust the background size to cover the entire body */
+    background-repeat: no-repeat; /* Prevent background image from repeating */
+    background-position: center; /* Center the background image */
+    padding: 20px;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust height as needed for vertical centering */
+}
+
+form {
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(48px); /* Blur effect */
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: white;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    text-transform: uppercase;
+   
+}
+:focus{
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #040607;
+    color: #fff;
+    border: none; /* Remove border */
+    border-radius: 24px;
+    cursor: pointer;
+    height: 40px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #040607;
+    border: 1px solid #faf8f8; /* Add border on hover */
+    transition: 0.1s ease;
+}
