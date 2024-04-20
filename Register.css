@@ -149,16 +149,17 @@ button:hover {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: #ffffff;
     margin: 10% auto; /* Adjusted margin for centering */
     padding: 20px;
     max-width: 80%; /* Adjusted max-width for responsiveness */
-    border-radius: 8px;
+    border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden; /* Hide overflowing content */
 }
 
 .close {
@@ -167,6 +168,7 @@ button:hover {
     font-size: 28px;
     font-weight: bold;
     cursor: pointer;
+    margin: 4px;
 }
 
 .close:hover,
@@ -176,32 +178,46 @@ button:hover {
 }
 
 .user-table-container {
-    max-height: 400px; /* Adjusted max height for scrolling */
+    max-height: 300px; /* Maximum height for the scrollable area */
+    overflow-x: auto; /* Enable horizontal scrolling */
     overflow-y: auto;
+    white-space: nowrap; /* Prevent line breaks for table cells */
+    -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS devices */
+    /* Optional: Adjust padding or margin to account for scrollbars */
+    padding-bottom: 20px; /* Example adjustment */
 }
 
 .user-table {
-    width: 100%;
+    min-width: 100%; /* Ensure table takes full width */
     border-collapse: collapse;
-    margin-top: 10px; /* Adjusted margin for spacing */
-    border-radius: 8px;
+    table-layout: fixed; /* Ensure consistent column widths */
 }
 
-.user-table th,
-.user-table td {
+.user-table th, .user-table td {
     padding: 8px;
-    text-align: left;
+    border: 1px solid #ddd;
+    color: rgb(99 89 89);
+    white-space: nowrap; /* Prevent text wrapping within cells */
+    overflow: hidden; /* Hide overflowing text */
+    text-overflow: ellipsis; /* Show ellipsis for long text */
 }
 
 .user-table th {
-    background-color: #f2f2f2;
+    background-color: #ebebeb;
+    color: rgb(35 32 32);
     font-weight: bold;
-}
-
-.user-table tr:nth-child(even) {
-    background-color: #f9f9f9;
+    text-align: left;
 }
 
 .user-table tr:hover {
-    background-color: #f1f1f1;
+    background-color: #dfdfdf;
+    cursor: pointer;
+}
+
+.user-table td {
+    text-align: left;
+}
+
+.user-table .inactive-row {
+    background-color: rgb(186, 177, 177); /* Light red for inactive rows */
 }

@@ -114,23 +114,48 @@
 });
 
 // Function to create HTML table from JSON data
+// Function to create HTML table from JSON data
 function createTableFromData(data) {
     let tableHTML = '<table class="user-table">';
     // Create table headers with renamed columns or remove specific columns
     tableHTML += '<tr>';
+    tableHTML += '<th>Id</th>'; // Add a header for serial number column
     Object.keys(data[0]).forEach(key => {
-        if (key !== 'uuid') { // Remove a specific column
-            let renamedKey = key === 'originalColumnName' ? 'New Name' : key; // Rename a column
+        if (key !== 'uuid' && key !== 'id') { // Check both conditions separately
+            let renamedKey = ''; // Initialize renamedKey variable
+            switch (key) {
+                case 'name':
+                    renamedKey = 'Name'; // Rename 'name' column to 'Full Name'
+                    break;
+                case 'email':
+                    renamedKey = 'Email Address'; // Rename 'email' column to 'Email Address'
+                    break;
+                case 'phoneNumber':
+                    renamedKey = 'Phone Number'; // Rename 'phoneNumber' column to 'Phone Number'
+                    break;
+                case 'isActive':
+                    renamedKey = 'Active'; // Rename 'isActive' column to 'Active'    
+                    break;
+                case 'createdAt':
+                    renamedKey = 'Joining Date'
+                    break;
+                default:
+                    renamedKey = key; // Use the key as is for other columns
+            }
             tableHTML += '<th>' + renamedKey + '</th>';
         }
     });
     tableHTML += '</tr>';
     // Create table rows with data
-    data.forEach(user => {
-        tableHTML += '<tr>';
+    data.forEach((user, index) => {
+        // Check if 'isActive' is false, and set the row background color accordingly
+        const rowClass = user.isActive === false ? ' inactive-row' : ''; // Add the inactive-row class if isActive is false
+        tableHTML += '<tr class="' + rowClass + '">';
+        tableHTML += '<td>' + (index + 1) + '</td>'; // Add serial number cell with index + 1
         Object.entries(user).forEach(([key, value]) => {
-            if (key !== 'uuid') { // Remove a specific column
-                tableHTML += '<td>' + value + '</td>';
+             if (key !== 'uuid' && key !== 'id') { // Check both conditions separately
+                let cellValue = value !== null && value !== undefined && value !== '' ? value : '-'; // Add "-" if value is empty
+                tableHTML += '<td>' + cellValue + '</td>';
             }
         });
         tableHTML += '</tr>';
@@ -138,6 +163,8 @@ function createTableFromData(data) {
     tableHTML += '</table>';
     return tableHTML;
 }
+
+
 
 // Close the modal when the close button is clicked
 document.getElementsByClassName('close')[0].addEventListener('click', function() {
