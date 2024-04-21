@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans&display=swap');
+
 body {
     font-family: "Plus Jakarta Sans", sans-serif;
     background-color: #f0f0f0;
@@ -28,6 +30,7 @@ label {
     display: block;
     margin-bottom: 8px;
     color: white;
+    font-size: 14px;
 }
 
 input[type="text"] {
@@ -46,6 +49,7 @@ input[type="date"] {
     padding: 8px; /* Adjust padding for better appearance */
     box-sizing: border-box; /* Include padding and border in the width */
     margin-bottom: 10px;
+    font-family: inherit;
 
 }
 :focus{
@@ -62,6 +66,7 @@ button {
     cursor: pointer;
     height: 40px;
     transition: background-color 0.3s ease;
+    font-family: inherit;
 }
 
 button:hover {
@@ -220,4 +225,11 @@ button:hover {
 
 .user-table .inactive-row {
     background-color: rgb(186, 177, 177); /* Light red for inactive rows */
+}
+/* Additional styling for the select element */
+#membershipType {
+    width: 100%; /* Set width to fill the parent container */
+    border-radius: 4px; /* Add border-radius for rounded corners */
+    height: 34px; /* Set height to match other inputs */
+    margin-bottom: 13px; /* Adjust margin as needed */
 }

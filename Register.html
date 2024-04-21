@@ -3,28 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Example</title>
+    <title>Register - GymBoard</title>
     <link rel="stylesheet" href="Register.css"> <!-- Link to your CSS file -->
+  
 </head>
 <body>
     <div class="container">
         <form id="myForm" onsubmit="submitForm(event)">
-            <label for="nameInput">Name:</label>
+            <label for="nameInput">Name</label>
             <input type="text" id="nameInput" name="name" required>
-            <label for="emailInput">Email:</label>
+            <label for="emailInput">Email</label>
             <input type="text" id="emailInput" name="email" required>
-            <label for="phoneInput">Phone Number:</label>
-            <input type="text" id="phoneInput" name="phoneNumber" required>
-            <label for="amountInput">Amount:</label>
+            <label for="phoneInput">Phone Number</label>
+            <input type="text" id="phoneInput" name="phoneNumber" required pattern="[0-9]{10}" title="Please enter a 10-digit phone number">
+            <label for="amountInput">Amount</label>
             <input type="text" id="amountInput" name="amount" required>
-            <label for="membershipType">Membership Type:</label>
-            <select id="membershipType" name="membershipType" required style="width: 100%; border-radius: 4px; height: 28px; margin-bottom: 13px;">
+            <label for="membershipType">Membership Type</label>
+            <select id="membershipType" name="membershipType" required>
                 <option value="SelectMembership">Select Membership</option>  
                 <option value="Silver">Silver</option>
                 <option value="Gold">Gold</option>
                 <option value="Diamond">Diamond</option>
             </select>
-            <label for="dateInput">Joining Date:</label>
+            <label for="dateInput">Joining Date</label>
             <input type="date" id="dateInput" name="date" required>
             <button type="submit" id="ctaButton">Register User</button>
             <div class="header">
